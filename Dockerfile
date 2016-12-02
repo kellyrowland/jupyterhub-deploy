@@ -12,6 +12,7 @@ RUN \
 # Add the edisongrid cert
 ADD ./certs /tmp/certs/
 RUN cp /tmp/certs/* /etc/grid-security/certificates/ && \
+    pip install git+https://github.com/scanon/batchspawner.git@nersc && \
     pip install git+https://github.com/NERSC/gsiauthenticator.git && \
     pip install git+https://github.com/NERSC/sshspawner.git
 
@@ -19,5 +20,8 @@ WORKDIR /srv/jupyterhub/
 EXPOSE 8000
 
 LABEL org.jupyter.service="jupyterhub"
+
+ADD sshspawner.py /tmp/
+RUN cp /tmp/sshspawner.py /opt/conda/lib/python3.5/site-packages/sshspawner/
 
 CMD ["jupyterhub"]
