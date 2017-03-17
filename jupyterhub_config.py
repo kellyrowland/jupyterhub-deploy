@@ -1,8 +1,8 @@
 import os
 c.JupyterHub.authenticator_class = 'gsiauthenticator.auth.GSIAuthenticator'
 
-#c.JupyterHub.ssl_key = '/certs/wild.nersc.gov.key'
-#c.JupyterHub.ssl_cert = '/certs/wild.nersc.gov.crt'
+c.JupyterHub.ssl_key = '/certs/wild.nersc.gov.key'
+c.JupyterHub.ssl_cert = '/certs/wild.nersc.gov.crt'
 
 IP='127.0.0.1'
 c.JupyterHub.hub_ip = '0.0.0.0'

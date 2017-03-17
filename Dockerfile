@@ -1,9 +1,6 @@
 FROM nersc/jupyterhub:latest
 MAINTAINER Shane Canon <scanon@lbl.gov>
 
-c.JupyterHub.ssl_key = '/certs/wild.nersc.gov.key'
-c.JupyterHub.ssl_cert = '/certs/wild.nersc.gov.crt'
-
 # Add gsissh and some other dependencies
 RUN \
   apt-get -y update && \
