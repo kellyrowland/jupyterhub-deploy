@@ -24,4 +24,6 @@ LABEL org.jupyter.service="jupyterhub"
 ADD sshspawner.py /tmp/
 RUN cp /tmp/sshspawner.py /opt/conda/lib/python3.5/site-packages/sshspawner/
 
+ADD jupyterhub_config.py /srv/jupyterhub/jupyterhub_config.py
+
 CMD ["jupyterhub"]
