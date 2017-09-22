@@ -1,4 +1,4 @@
-FROM rcthomas/jupyter-deploy-base:latest
+FROM nersc/jupyterhub-base:latest
 MAINTAINER Rollin Thomas <rcthomas@lbl.com>
 
 # Add gsissh
