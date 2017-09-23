@@ -17,7 +17,7 @@ RUN \
     cp /tmp/certs/* /etc/grid-security/certificates/ && \
     pip install git+https://github.com/NERSC/gsiauthenticator.git && \
     pip install git+https://github.com/NERSC/sshspawner.git && \
-    pip install git+https://github.com/jupyterhub/wrapspawner
+    pip install git+https://github.com/NERSC/wrapspawner@non-fatal-if-no-db
 
 WORKDIR /srv/
 EXPOSE 8000
