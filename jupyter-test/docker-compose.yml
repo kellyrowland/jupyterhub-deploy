@@ -1,4 +1,4 @@
-jupyterdev:
+jupytertest:
   image: rcthomas/jupyterhub-test:latest
   environment:
       - PATH=/opt/anaconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
