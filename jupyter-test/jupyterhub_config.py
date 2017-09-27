@@ -816,5 +816,6 @@ cori_login_config['path'] = bindir + ':/global/common/cori/das/jupyterhub/:/usr/
 cori_login_config['remote_port_command'] = '/global/common/cori/das/jupyterhub/get_port.py'
 
 c.ProfilesSpawner.profiles = [
-    ('Cori Login', 'cori_login', 'sshspawner.sshspawner.SSHSpawner', cori_login_config),
+    ('Local Process', 'local_process'   , 'jupyterhub.spawner.LocalProcessSpawner', {'ip':'0.0.0.0'}),
+    ('Cori Login'   , 'cori_login'      , 'sshspawner.sshspawner.SSHSpawner', cori_login_config),
 ]
