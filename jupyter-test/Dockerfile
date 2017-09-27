@@ -1,4 +1,4 @@
-FROM nersc/jupyterhub-base:latest
+FROM nersc/jupyterhub-prod:latest
 MAINTAINER Rollin Thomas <rcthomas@lbl.com>
 
 # Add gsissh
@@ -16,7 +16,7 @@ RUN \
     mkdir /etc/grid-security/certificates/ && \
     cp /tmp/certs/* /etc/grid-security/certificates/ && \
     pip install git+https://github.com/NERSC/gsiauthenticator.git && \
-    pip install git+https://github.com/NERSC/sshspawner.git && \
+    pip install git+https://github.com/NERSC/sshspawner.git@set-port-attribute && \
     pip install git+https://github.com/NERSC/wrapspawner@non-fatal-if-no-db
 
 WORKDIR /srv/
