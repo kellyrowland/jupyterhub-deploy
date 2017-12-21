@@ -12,8 +12,9 @@ MAINTAINER Rollin Thomas <rcthomas@lbl.com>
 # Authenticator and spawner
 
 RUN \
-    pip install git+https://github.com/nersc/sshapiauthenticator.git    && \
-    pip install git+https://github.com/nersc/sshspawner.git             && \
+    pip install git+https://github.com/nersc/sshapiauthenticator.git            && \
+    pip install git+https://github.com/nersc/sshspawner.git                     && \
+    pip install git+https://github.com/nersc/batchspawner.git@happy-holidays    && \
     pip install git+https://github.com/nersc/wrapspawner.git@sknigh-fix
 
 ADD docker-entrypoint.sh jupyterhub_config.py /srv/
