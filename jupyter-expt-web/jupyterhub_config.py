@@ -823,10 +823,9 @@ c.ProfilesSpawner.profiles = [
             } ),
         ( "Gerty Compute"   , 'gerty-compute' , 'batchspawner.batchspawner.RollinSlurmSpawner', {
             "startup_poll_interval" : 10.0,
-            "req_ssh_keyfile" : '/tmp/{username}.key',
             "req_remote_host" : "gert01-224.nersc.gov",
-            "req_remote_port" : "22",
             "req_homedir" : "/tmp",
+            "runtime"     : "30",
             "hub_api_url" : 'http://{}:8081/hub/api'.format(ip),
             "path"        : bindir + ':/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin',
             } ),
