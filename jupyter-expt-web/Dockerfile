@@ -1,14 +1,6 @@
 FROM registry.spin.nersc.gov/das/jupyterhub-base:latest
 MAINTAINER Rollin Thomas <rcthomas@lbl.com>
 
-## # Python 3 Anaconda and additional packages
-## 
-## RUN \
-##     /opt/anaconda3/bin/conda update --yes conda                 && \
-##     /opt/anaconda3/bin/conda install --yes ipykernel notebook   && \
-##     /opt/anaconda3/bin/ipython kernel install                   && \
-##     /opt/anaconda3/bin/conda clean --yes --all
-
 # Authenticator and spawner
 
 RUN \
