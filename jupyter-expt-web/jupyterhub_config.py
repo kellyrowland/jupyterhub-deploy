@@ -8,6 +8,8 @@ bindir = '/global/common/cori/software/python/3.6-anaconda-4.4/bin/'
 if 'BASE_PATH' in os.environ:
     bindir = os.path.join(os.environ['BASE_PATH'], 'bin')
 
+ip = requests.get('https://v4.ifconfig.co/json').json()['ip']
+
 #------------------------------------------------------------------------------
 # Application(SingletonConfigurable) configuration
 #------------------------------------------------------------------------------
@@ -551,7 +553,7 @@ c.Spawner.notebook_dir = '/'
 #  JupyterHub modifies its own state accordingly and removes appropriate routes
 #  from the configurable proxy.
 #c.Spawner.poll_interval = 30
-c.Spawner.poll_interval = 1800
+c.Spawner.poll_interval = 60
 
 ## The port for single-user servers to listen on.
 #  
@@ -806,7 +808,7 @@ c.ProfilesSpawner.profiles = [
         ( "Spin"            , 'spin' , 'sshspawner.sshspawner.SSHSpawner', {
             "remote_host" : "jupyter",
             "remote_port" : "22",
-            "hub_api_url" : 'http://{}:8081/hub/api'.format(requests.get('https://ifconfig.co/json').json()['ip']),
+            "hub_api_url" : 'http://{}:8081/hub/api'.format(ip),
             "path"        : '/opt/anaconda3/bin:/usr/bin:/usr/local/bin:/bin',
             "remote_port_command" : '/opt/anaconda3/bin/get_port.py',
             "ssh_keyfile" : '/tmp/%U.key',
@@ -814,7 +816,7 @@ c.ProfilesSpawner.profiles = [
         ( "Gerty Login"     , 'gerty-login' , 'sshspawner.sshspawner.SSHSpawner', {
             "remote_host" : "gert01-224.nersc.gov",
             "remote_port" : "22",
-            "hub_api_url" : 'http://{}:8081/hub/api'.format(requests.get('https://ifconfig.co/json').json()['ip']),
+            "hub_api_url" : 'http://{}:8081/hub/api'.format(ip),
             "path"        : bindir + ':/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin',
             "remote_port_command" : '/global/common/cori/das/jupyterhub/get_port.py',
             "ssh_keyfile" : '/tmp/%U.key',
@@ -824,10 +826,9 @@ c.ProfilesSpawner.profiles = [
             "req_ssh_keyfile" : '/tmp/{username}.key',
             "req_remote_host" : "gert01-224.nersc.gov",
             "req_remote_port" : "22",
-#           "hub_api_url" : 'http://{}:8081/hub/api'.format(requests.get('https://ifconfig.co/json').json()['ip']),
-#           "path"        : bindir + ':/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin',
-#           "remote_port_command" : '/global/common/cori/das/jupyterhub/get_port.py',
-#           "ssh_keyfile" : '/tmp/%U.key',
+            "req_homedir" : "/tmp",
+            "hub_api_url" : 'http://{}:8081/hub/api'.format(ip),
+            "path"        : bindir + ':/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin',
             } ),
         ]
 
