@@ -821,7 +821,7 @@ c.ProfilesSpawner.profiles = [
             "remote_port_command" : '/global/common/cori/das/jupyterhub/get_port.py',
             "ssh_keyfile" : '/tmp/%U.key',
             } ),
-        ( "Gerty Compute"   , 'gerty-compute' , 'batchspawner.batchspawner.RollinSlurmSpawner', {
+        ( "Gerty Compute"   , 'gerty-compute' , 'nerscspawner.nerscspawner.NERSCSlurmSpawner', {
             "startup_poll_interval" : 10.0,
             "req_remote_host" : "gert01-224.nersc.gov",
             "req_homedir" : "/tmp",
