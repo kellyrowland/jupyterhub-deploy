@@ -821,11 +821,20 @@ c.ProfilesSpawner.profiles = [
             "remote_port_command" : '/global/common/cori/das/jupyterhub/get_port.py',
             "ssh_keyfile" : '/tmp/%U.key',
             } ),
-        ( "Gerty Compute"   , 'gerty-compute' , 'nerscspawner.nerscspawner.NERSCSlurmSpawner', {
+        ( "Gerty Exclusive" , 'gerty-exclusive' , 'nerscspawner.nerscspawner.NERSCSlurmSpawner', {
             "startup_poll_interval" : 10.0,
             "req_remote_host" : "gert01-224.nersc.gov",
             "req_homedir" : "/tmp",
             "req_runtime" : "30",
+            "hub_api_url" : 'http://{}:8081/hub/api'.format(ip),
+            "path"        : bindir + ':/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin',
+            } ),
+        ( "Gerty Shared"   , 'gerty-shared' , 'nerscspawner.nerscspawner.NERSCSlurmSpawnerShared', {
+            "startup_poll_interval" : 10.0,
+            "req_remote_host" : "gert01-224.nersc.gov",
+            "req_homedir" : "/tmp",
+            "req_runtime" : "30",
+            "req_qos"     : "shared",
             "hub_api_url" : 'http://{}:8081/hub/api'.format(ip),
             "path"        : bindir + ':/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin',
             } ),
