@@ -1,4 +1,4 @@
-FROM registry.spin.nersc.gov/das/jupyterhub-base:latest
+FROM registry.spin.nersc.gov/das/jupyterhub-expt-base:latest
 MAINTAINER Rollin Thomas <rcthomas@lbl.com>
 
 # Authenticator and spawner
