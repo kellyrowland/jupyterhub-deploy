@@ -311,6 +311,7 @@
 
 ## Paths to search for jinja templates.
 #c.JupyterHub.template_paths = []
+c.JupyterHub.template_paths = ["/srv/templates"]
 
 ## Extra settings overrides to pass to the tornado application.
 #c.JupyterHub.tornado_settings = {}
@@ -514,6 +515,7 @@
 #  The data from this form submission will be passed on to your spawner in
 #  `self.user_options`
 #c.Spawner.options_form = ''
+c.Spawner.options_form = 'metasyntactic variable'
 
 ## Interval (in seconds) on which to poll the spawner for single-user server's
 #  status.
