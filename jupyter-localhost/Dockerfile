@@ -1,4 +1,4 @@
-FROM registry.spin.nersc.gov/das/jupyterhub-base:latest
+FROM jupyterhub-base.mock-spawner-options-form:latest
 MAINTAINER Rollin Thomas <rcthomas@lbl.com>
 
 # Python 3 Anaconda and additional packages
@@ -28,6 +28,10 @@ RUN \
 RUN \
     adduser -q --gecos "" --disabled-password master    && \
     echo master:you-have-failed-us-torgo | chpasswd
+
+# Custom templates
+
+#ADD templates /srv/templates
 
 WORKDIR /srv
 RUN chmod +x docker-entrypoint.sh
