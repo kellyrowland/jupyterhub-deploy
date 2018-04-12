@@ -284,13 +284,16 @@ c.JupyterHub.hub_ip = '0.0.0.0'
 #              'environment':
 #          }
 #      ]
-c.JupyterHub.services = [
-    {
-        'name': 'cull-idle',
-        'admin': True,
-        'command': 'cull_idle_servers.py --timeout=86400'.split(),
-    }
-]
+###
+### FIXME Turning this off until we know how it interacts with wrapspawner
+###
+### c.JupyterHub.services = [
+###     {
+###         'name': 'cull-idle',
+###         'admin': True,
+###         'command': 'cull_idle_servers.py --timeout=86400'.split(),
+###     }
+### ]
 
 ## The class to use for spawning single-user servers.
 #  
