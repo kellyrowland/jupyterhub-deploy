@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Rollin Thomas <rcthomas@lbl.gov>
 
 # Base Ubuntu packages
@@ -34,6 +34,7 @@ RUN \
     rm -rf /tmp/anaconda3.sh                            &&  \
     /opt/anaconda3/bin/conda update --yes conda         &&  \
     /opt/anaconda3/bin/conda install --yes                  \
+        alembic         \
         decorator       \
         jinja2          \
         mako            \
@@ -42,6 +43,7 @@ RUN \
         psycopg2        \
         pyopenssl       \
         python-dateutil \
+        python-editor   \
         sqlalchemy      \
         tornado         \
         traitlets
