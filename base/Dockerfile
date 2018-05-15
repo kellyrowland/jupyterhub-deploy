@@ -32,7 +32,9 @@ RUN \
     wget -q -O /tmp/miniconda3.sh https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh    &&  \
     bash /tmp/miniconda3.sh -f -b -p /opt/anaconda3     &&  \
     rm -rf /tmp/anaconda3.sh                            &&  \
-    /opt/anaconda3/bin/conda update --yes conda         &&  \
+    /opt/anaconda3/bin/conda update --yes                   \
+        conda                                               \
+        pip                                             &&  \
     /opt/anaconda3/bin/conda install --yes                  \
         alembic         \
         decorator       \
