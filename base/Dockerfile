@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Rollin Thomas <rcthomas@lbl.gov>
 
 # Base Ubuntu packages
@@ -32,8 +32,11 @@ RUN \
     wget -q -O /tmp/miniconda3.sh https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh    &&  \
     bash /tmp/miniconda3.sh -f -b -p /opt/anaconda3     &&  \
     rm -rf /tmp/anaconda3.sh                            &&  \
-    /opt/anaconda3/bin/conda update --yes conda         &&  \
+    /opt/anaconda3/bin/conda update --yes                   \
+        conda                                               \
+        pip                                             &&  \
     /opt/anaconda3/bin/conda install --yes                  \
+        alembic         \
         decorator       \
         jinja2          \
         mako            \
@@ -42,6 +45,7 @@ RUN \
         psycopg2        \
         pyopenssl       \
         python-dateutil \
+        python-editor   \
         sqlalchemy      \
         tornado         \
         traitlets
@@ -54,6 +58,7 @@ RUN \
     npm install -g configurable-http-proxy                          &&  \
     git clone https://github.com/jupyterhub/jupyterhub.git          &&  \
     cd jupyterhub                                                   &&  \
+    git checkout tags/0.9.0                                         &&  \
     /opt/anaconda3/bin/python setup.py js                           &&  \
     /opt/anaconda3/bin/pip install .                                &&  \
     cp examples/cull-idle/cull_idle_servers.py /opt/anaconda3/bin/. &&  \

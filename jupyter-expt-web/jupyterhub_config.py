@@ -294,6 +294,7 @@ c.JupyterHub.hub_ip = '0.0.0.0'
 ###         'command': 'cull_idle_servers.py --timeout=86400'.split(),
 ###     }
 ### ]
+###
 
 ## The class to use for spawning single-user servers.
 #  
@@ -336,6 +337,8 @@ c.JupyterHub.hub_ip = '0.0.0.0'
 
 ## Paths to search for jinja templates.
 #c.JupyterHub.template_paths = []
+import sys
+c.JupyterHub.template_paths = [os.path.join(sys.prefix, "share/nerscspawner/templates")]
 
 ## Extra settings overrides to pass to the tornado application.
 #c.JupyterHub.tornado_settings = {}
@@ -392,9 +395,9 @@ c.JupyterHub.hub_ip = '0.0.0.0'
 #  Some spawners allow shell-style expansion here, allowing you to use
 #  environment variables. Most, including the default, do not. Consult the
 #  documentation for your spawner to verify!
-#c.Spawner.cmd = ['jupyterhub-singleuser']
+c.Spawner.cmd = ['jupyterhub-singleuser']
 #c.Spawner.cmd = [os.path.join(bindir, 'jupyterhub-singleuser')]
-c.Spawner.cmd = ['jupyter-labhub']
+#c.Spawner.cmd = ['jupyter-labhub']
 
 ## Minimum number of cpu-cores a single-user notebook server is guaranteed to
 #  have available.
@@ -431,8 +434,8 @@ c.Spawner.cmd = ['jupyter-labhub']
 #  - Start with `/notebooks` instead of `/tree` if `default_url` points to a notebook instead of a directory.
 #  - You can set this to `/lab` to have JupyterLab start by default, rather than Jupyter Notebook.
 #c.Spawner.default_url = ''
-#c.Spawner.default_url = '/tree/global/homes/{username[0]}/{username}'
-c.Spawner.default_url = '/lab/tree/global/homes/{username[0]}/{username}'
+c.Spawner.default_url = '/tree/global/homes/{username[0]}/{username}'
+#c.Spawner.default_url = '/lab/tree/global/homes/{username[0]}/{username}'
 
 ## Disable per-user configuration of single-user servers.
 #  
@@ -799,75 +802,41 @@ c.SSHAPIAuthenticator.skey = 'JupyterRocks!'
 # ProfilesSpawner configuration
 #------------------------------------------------------------------------------
 
-c.JupyterHub.spawner_class = 'wrapspawner.ProfilesSpawner'
+### c.JupyterHub.spawner_class = 'wrapspawner.ProfilesSpawner'
+c.JupyterHub.spawner_class = 'nerscspawner.nerscspawner.NERSCSpawner'
 c.Spawner.http_timeout = 120
 
 # List of profiles to offer for selection. Signature is:
-#   List(Tuple( Unicode, Unicode, Type(Spawner), Dict ))
-# corresponding to profile display name, unique key, Spawner class,
+#   List(Tuple(Unicode, Type(Spawner), Dict))
+# corresponding to unique profile spawn key, Spawner class,
 # dictionary of spawner config options.
-# 
-# The first three values will be exposed in the input_template as {display},
-# {key}, and {type}
 #
-c.ProfilesSpawner.profiles = [
-        ( "Spin"            , 'spin' , 'sshspawner.sshspawner.SSHSpawner', {
-            "remote_host" : "jupyter",
-            "remote_port" : "22",
-            "hub_api_url" : 'http://{}:8081/hub/api'.format(ip),
-            "path"        : '/opt/anaconda3/bin:/usr/bin:/usr/local/bin:/bin',
-            "remote_port_command" : '/opt/anaconda3/bin/get_port.py',
-            "ssh_keyfile" : '/tmp/%U.key',
-            } ),
-        ( "Gerty Login"     , 'gerty-login' , 'sshspawner.sshspawner.SSHSpawner', {
-            "remote_host" : "gert01-224.nersc.gov",
-            "remote_port" : "22",
-            "hub_api_url" : 'http://{}:8081/hub/api'.format(ip),
-            "path"        : bindir + ':/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin',
-            "remote_port_command" : '/global/common/cori/das/jupyterhub/get_port.py',
-            "ssh_keyfile" : '/tmp/%U.key',
-            } ),
-        ( "Gerty Exclusive" , 'gerty-exclusive' , 'nerscspawner.nerscspawner.NERSCSlurmSpawner', {
+# Right now these are not used in the template at all, but it would be nice to
+# come up with a hierarchical way of arranging them.
+
+c.NERSCSpawner.profiles = [
+        ("spin", "sshspawner.sshspawner.SSHSpawner", {
+            "remote_host"           : "jupyter",
+            "remote_port"           : "22",
+            "hub_api_url"           : "http://{}:8081/hub/api".format(ip),
+            "path"                  : "/opt/anaconda3/bin:/usr/bin:/usr/local/bin:/bin",
+            "remote_port_command"   : "/opt/anaconda3/bin/get_port.py",
+            "ssh_keyfile"           : "/tmp/{username}.key",
+        }),
+        ("gerty-shared", "sshspawner.sshspawner.SSHSpawner", {
+            "remote_host"           : "gert01-224.nersc.gov",
+            "remote_port"           : "22",
+            "hub_api_url"           : "http://{}:8081/hub/api".format(ip),
+            "path"                  : bindir + ":/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin",
+            "remote_port_command"   : "/global/common/cori/das/jupyterhub/get_port.py",
+            "ssh_keyfile"           : "/tmp/{username}.key",
+        }),
+        ("gerty-exclusive-cpu", "nerscspawner.nerscspawner.NERSCSlurmSpawner", {
             "startup_poll_interval" : 10.0,
-            "req_remote_host" : "gert01-224.nersc.gov",
-            "req_homedir" : "/tmp",
-            "req_runtime" : "30",
-            "hub_api_url" : 'http://{}:8081/hub/api'.format(ip),
-            "path"        : bindir + ':/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin',
-            } ),
-        ( "Gerty Shared"   , 'gerty-shared' , 'nerscspawner.nerscspawner.NERSCSlurmSpawnerShared', {
-            "startup_poll_interval" : 10.0,
-            "req_remote_host" : "gert01-224.nersc.gov",
-            "req_homedir" : "/tmp",
-            "req_runtime" : "30",
-            "req_qos"     : "shared",
-            "hub_api_url" : 'http://{}:8081/hub/api'.format(ip),
-            "path"        : bindir + ':/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin',
-            } ),
-        ]
-
-#------------------------------------------------------------------------------
-# SSHSpawner(Spawner) configuration
-#------------------------------------------------------------------------------
-
-#c.SSHSpawner.remote_host = 'gert01-224.nersc.gov'
-#c.SSHSpawner.remote_port = '2222'
-##c.SSHSpawner.ssh_command = 'gsissh'
-#if 'REMOTE_HOST' in os.environ:
-#    host, port = os.environ['REMOTE_HOST'].split(':')
-#    c.SSHSpawner.remote_host = host
-#    c.SSHSpawner.remote_port = port
-#
-#c.SSHSpawner.hub_api_url = 'http://{}:8081/hub/api'.format(requests.get('https://ifconfig.co/json').json()['ip'])
-#if 'HUB_API_URL' in os.environ:
-#    c.SSHSpawner.hub_api_url = os.environ['HUB_API_URL']
-#
-##c.SSHSpawner.use_gsi = True
-#c.SSHSpawner.path = bindir + ':/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin'
-#c.SSHSpawner.remote_port_command = '/global/common/cori/das/jupyterhub/get_port.py'
-##c.SSHSpawner.gsi_cert_path = '/certs/x509_%U'
-##c.SSHSpawner.gsi_key_path = '/certs/x509_%U'
-#c.SSHSpawner.ssh_keyfile = '/tmp/%U.key'
-#
-
-
+            "req_remote_host"       : "gert01-224.nersc.gov",
+            "req_homedir"           : "/tmp",
+            "req_runtime"           : "30",
+            "hub_api_url"           : "http://{}:8081/hub/api".format(ip),
+            "path"                  : bindir + ":/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin",
+        }),
+]
