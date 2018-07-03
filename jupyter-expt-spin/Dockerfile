@@ -1,4 +1,5 @@
-FROM registry.spin.nersc.gov/das/jupyterhub-spin:latest
+#FROM registry.spin.nersc.gov/das/jupyterhub-spin:latest
+FROM jupyterhub-base.begin-jupyter-expt:latest
 MAINTAINER Rollin Thomas <rcthomas@lbl.com>
 
 # Additional Ubuntu packages
