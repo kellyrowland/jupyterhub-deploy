@@ -820,7 +820,7 @@ c.NERSCSpawner.profiles = [
             "hub_api_url"           : "http://{}:8081/hub/api".format(ip),
             "path"                  : "/opt/anaconda3/bin:/usr/bin:/usr/local/bin:/bin",
             "remote_port_command"   : "/opt/anaconda3/bin/get_port.py",
-            "ssh_keyfile"           : "/tmp/%U.key",
+            "ssh_keyfile"           : "/tmp/{username}.key",
         }),
         ("gerty-shared", "sshspawner.sshspawner.SSHSpawner", {
             "remote_host"           : "gert01-224.nersc.gov",
@@ -828,7 +828,7 @@ c.NERSCSpawner.profiles = [
             "hub_api_url"           : "http://{}:8081/hub/api".format(ip),
             "path"                  : bindir + ":/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin",
             "remote_port_command"   : "/global/common/cori/das/jupyterhub/get_port.py",
-            "ssh_keyfile"           : "/tmp/%U.key",
+            "ssh_keyfile"           : "/tmp/{username}.key",
         }),
         ("gerty-exclusive-cpu", "nerscspawner.nerscspawner.NERSCSlurmSpawner", {
             "startup_poll_interval" : 10.0,
