@@ -706,7 +706,8 @@ c.Authenticator.admin_users = set(os.environ.get("ADMINS", "").split(","))
 #  
 #  If empty, does not perform any additional restriction.
 #c.Authenticator.whitelist = set()
-c.Authenticator.whitelist = set(os.environ.get("ADMINS", "").split(","))
+c.Authenticator.whitelist = set(os.environ.get("ADMINS", "").split(",") +
+        ["krinsman", "sfarrell"])
 
 #------------------------------------------------------------------------------
 # LocalAuthenticator(Authenticator) configuration
@@ -795,7 +796,8 @@ c.Authenticator.whitelist = set(os.environ.get("ADMINS", "").split(","))
 # SSHAPIAuthenticator(Authenticator) configuration
 #------------------------------------------------------------------------------
 
-c.SSHAPIAuthenticator.server = 'https://sshauthapi.nersc.gov/create_pair'
+c.SSHAPIAuthenticator.server = 'https://sshauthapi.nersc.gov/create_pair/jupyter/'
+c.SSHAPIAuthenticator.skey = 'JupyterRocks!'
 
 #------------------------------------------------------------------------------
 # ProfilesSpawner configuration
@@ -815,7 +817,7 @@ c.Spawner.http_timeout = 120
 
 c.NERSCSpawner.profiles = [
         ("spin", "sshspawner.sshspawner.SSHSpawner", {
-            "remote_host"           : "jupyter",
+            "remote_hosts"          : ["jupyter"],
             "remote_port"           : "22",
             "hub_api_url"           : "http://{}:8081/hub/api".format(ip),
             "path"                  : "/opt/anaconda3/bin:/usr/bin:/usr/local/bin:/bin",
@@ -823,7 +825,7 @@ c.NERSCSpawner.profiles = [
             "ssh_keyfile"           : "/tmp/{username}.key",
         }),
         ("gerty-shared", "sshspawner.sshspawner.SSHSpawner", {
-            "remote_host"           : "gert01-224.nersc.gov",
+            "remote_hosts"          : ["gert01-224.nersc.gov"],
             "remote_port"           : "22",
             "hub_api_url"           : "http://{}:8081/hub/api".format(ip),
             "path"                  : bindir + ":/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin",
@@ -831,6 +833,7 @@ c.NERSCSpawner.profiles = [
             "ssh_keyfile"           : "/tmp/{username}.key",
         }),
         ("gerty-exclusive-cpu", "nerscspawner.nerscspawner.NERSCSlurmSpawner", {
+            "exec_prefix"           : "",
             "startup_poll_interval" : 10.0,
             "req_remote_host"       : "gert01-224.nersc.gov",
             "req_homedir"           : "/tmp",
