@@ -797,7 +797,7 @@ c.Authenticator.whitelist = set(os.environ.get("ADMINS", "").split(",") +
 #------------------------------------------------------------------------------
 
 c.SSHAPIAuthenticator.server = 'https://sshauthapi.nersc.gov/create_pair/jupyter/'
-c.SSHAPIAuthenticator.skey = 'JupyterRocks!'
+c.SSHAPIAuthenticator.skey = os.environ.get('SKEY')
 
 #------------------------------------------------------------------------------
 # ProfilesSpawner configuration
