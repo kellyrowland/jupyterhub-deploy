@@ -338,7 +338,8 @@ c.JupyterHub.hub_ip = '0.0.0.0'
 ## Paths to search for jinja templates.
 #c.JupyterHub.template_paths = []
 import sys
-c.JupyterHub.template_paths = [os.path.join(sys.prefix, "share/nerscspawner/templates")]
+c.JupyterHub.template_paths = ["templates", 
+        os.path.join(sys.prefix, "share/nerscspawner/templates")]
 
 ## Extra settings overrides to pass to the tornado application.
 #c.JupyterHub.tornado_settings = {}

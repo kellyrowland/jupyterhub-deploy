@@ -12,6 +12,7 @@ RUN \
     pip install git+https://github.com/nersc/nerscspawner.git
 
 ADD docker-entrypoint.sh jupyterhub_config.py /srv/
+ADD templates /srv/templates/
 
 WORKDIR /srv
 RUN chmod +x docker-entrypoint.sh
