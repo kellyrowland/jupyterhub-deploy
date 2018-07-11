@@ -843,4 +843,14 @@ c.NERSCSpawner.profiles = [
             "hub_api_url"           : "http://{}:8081/hub/api".format(ip),
             "path"                  : bindir + ":/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin",
         }),
+        ("gerty-configurable", "nerscspawner.nerscspawner.NERSCSlurmSpawner", {
+            "exec_prefix"           : 
+                "/usr/bin/ssh -q -o StrictHostKeyChecking=no -o preferredauthentications=publickey -l {username} -i /tmp/{username}.key {remote_host}",
+            "startup_poll_interval" : 10.0,
+            "req_remote_host"       : "gert01-224.nersc.gov",
+            "req_homedir"           : "/tmp",
+            "req_runtime"           : "30",
+            "hub_api_url"           : "http://{}:8081/hub/api".format(ip),
+            "path"                  : bindir + ":/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin",
+        }),
 ]
