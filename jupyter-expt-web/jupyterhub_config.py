@@ -834,7 +834,8 @@ c.NERSCSpawner.profiles = [
             "ssh_keyfile"           : "/tmp/{username}.key",
         }),
         ("gerty-exclusive-cpu", "nerscspawner.nerscspawner.NERSCSlurmSpawner", {
-            "exec_prefix"           : "",
+            "exec_prefix"           : 
+                "/usr/bin/ssh -q -o StrictHostKeyChecking=no -o preferredauthentications=publickey -l {username} -i /tmp/{username}.key {remote_host}",
             "startup_poll_interval" : 10.0,
             "req_remote_host"       : "gert01-224.nersc.gov",
             "req_homedir"           : "/tmp",
