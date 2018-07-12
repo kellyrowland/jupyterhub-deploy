@@ -4,7 +4,7 @@ import os
 
 import requests
 
-bindir = '/global/common/cori/software/python/3.6-anaconda-4.4/bin/'
+bindir = '/global/common/gerty/software/python/3.6-anaconda-5.2/bin/'
 if 'BASE_PATH' in os.environ:
     bindir = os.path.join(os.environ['BASE_PATH'], 'bin')
 
@@ -843,7 +843,7 @@ c.NERSCSpawner.profiles = [
             "hub_api_url"           : "http://{}:8081/hub/api".format(ip),
             "path"                  : bindir + ":/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin",
         }),
-        ("gerty-configurable", "nerscspawner.nerscspawner.NERSCSlurmSpawner", {
+        ("gerty-config", "nerscspawner.nerscspawner.NERSCSlurmSpawner", {
             "exec_prefix"           : 
                 "/usr/bin/ssh -q -o StrictHostKeyChecking=no -o preferredauthentications=publickey -l {username} -i /tmp/{username}.key {remote_host}",
             "startup_poll_interval" : 10.0,
