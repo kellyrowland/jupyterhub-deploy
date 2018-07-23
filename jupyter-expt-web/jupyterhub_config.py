@@ -396,9 +396,9 @@ c.JupyterHub.template_paths = ["templates",
 #  Some spawners allow shell-style expansion here, allowing you to use
 #  environment variables. Most, including the default, do not. Consult the
 #  documentation for your spawner to verify!
-c.Spawner.cmd = ['jupyterhub-singleuser']
+#c.Spawner.cmd = ['jupyterhub-singleuser']
 #c.Spawner.cmd = [os.path.join(bindir, 'jupyterhub-singleuser')]
-#c.Spawner.cmd = ['jupyter-labhub']
+c.Spawner.cmd = ['jupyter-labhub']
 
 ## Minimum number of cpu-cores a single-user notebook server is guaranteed to
 #  have available.
@@ -435,8 +435,8 @@ c.Spawner.cmd = ['jupyterhub-singleuser']
 #  - Start with `/notebooks` instead of `/tree` if `default_url` points to a notebook instead of a directory.
 #  - You can set this to `/lab` to have JupyterLab start by default, rather than Jupyter Notebook.
 #c.Spawner.default_url = ''
-c.Spawner.default_url = '/tree/global/homes/{username[0]}/{username}'
-#c.Spawner.default_url = '/lab/tree/global/homes/{username[0]}/{username}'
+#c.Spawner.default_url = '/tree/global/homes/{username[0]}/{username}'
+c.Spawner.default_url = '/lab/tree/global/homes/{username[0]}/{username}'
 
 ## Disable per-user configuration of single-user servers.
 #  
@@ -528,7 +528,8 @@ c.Spawner.ip = '0.0.0.0'
 #  Note that this does *not* prevent users from accessing files outside of this
 #  path! They can do so with many other means.
 #c.Spawner.notebook_dir = ''
-c.Spawner.notebook_dir = '/'
+#c.Spawner.notebook_dir = '/'
+c.Spawner.notebook_dir = '/global/homes/{username[0]}/{username}'
 
 ## An HTML form for options a user can specify on launching their server.
 #  
@@ -708,7 +709,7 @@ c.Authenticator.admin_users = set(os.environ.get("ADMINS", "").split(","))
 #  If empty, does not perform any additional restriction.
 #c.Authenticator.whitelist = set()
 c.Authenticator.whitelist = set(os.environ.get("ADMINS", "").split(",") +
-        ["krinsman", "sfarrell"])
+        ["krinsman", "sfarrell", "mustafa"])
 
 #------------------------------------------------------------------------------
 # LocalAuthenticator(Authenticator) configuration
