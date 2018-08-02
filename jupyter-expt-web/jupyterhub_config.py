@@ -295,6 +295,13 @@ c.JupyterHub.hub_ip = '0.0.0.0'
 ###     }
 ### ]
 ###
+c.JupyterHub.services = [
+        {
+            'name': 'announcement',
+            'url': 'http://127.0.0.1:8888',
+            'command': ["python", "-m", "announcement"],
+        }
+]
 
 ## The class to use for spawning single-user servers.
 #  
