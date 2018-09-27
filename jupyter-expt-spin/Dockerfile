@@ -43,7 +43,9 @@ RUN \
 RUN \
     mkdir -p /var/run/sshd  && \
     echo "AuthorizedKeysCommand /usr/lib/nersc-ssh-keys/NERSC-keys-api" >> /etc/ssh/sshd_config && \
-    echo "AuthorizedKeysCommandUser nobody" >> /etc/ssh/sshd_config
+    echo "AuthorizedKeysCommandUser nobody" >> /etc/ssh/sshd_config && \
+    echo "TrustedUserCAKeys /etc/user_ca.pub"  >> /etc/ssh/sshd_config
+
 
 # PAM, LDAP
 
