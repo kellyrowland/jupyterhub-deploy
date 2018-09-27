@@ -1,5 +1,3 @@
-#FROM registry.spin.nersc.gov/das/jupyterhub-expt-base:latest
-#FROM jupyterhub-base.begin-jupyter-expt:latest
 FROM registry.spin.nersc.gov/das/jupyterhub-expt-base.begin-jupyter-expt:latest
 MAINTAINER Rollin Thomas <rcthomas@lbl.com>
 
