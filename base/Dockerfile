@@ -42,6 +42,7 @@ RUN \
         mako            \
         markupsafe      \
         nodejs          \
+        oauthlib        \
         psycopg2        \
         pyopenssl       \
         python-dateutil \
