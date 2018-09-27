@@ -56,10 +56,8 @@ ENV PATH=/opt/anaconda3/bin:$PATH
 WORKDIR /tmp
 RUN \
     npm install -g configurable-http-proxy                          &&  \
-#   git clone https://github.com/jupyterhub/jupyterhub.git          &&  \
-    git clone https://github.com/NERSC/jupyterhub.git               &&  \
+    git clone https://github.com/jupyterhub/jupyterhub.git          &&  \
     cd jupyterhub                                                   &&  \
-    git checkout test-announcement-service-example                  &&  \
 #   git checkout tags/0.9.1                                         &&  \
     /opt/anaconda3/bin/python setup.py js                           &&  \
     /opt/anaconda3/bin/pip install .                                &&  \
