@@ -4,7 +4,7 @@ import os
 
 import requests
 
-bindir = '/global/common/gerty/software/python/3.6-anaconda-5.2/bin/'
+bindir = '/global/common/cori/software/python/3.6-anaconda-5.2/bin/'
 if 'BASE_PATH' in os.environ:
     bindir = os.path.join(os.environ['BASE_PATH'], 'bin')
 
@@ -805,7 +805,7 @@ c.Authenticator.whitelist = set(os.environ.get("ADMINS", "").split(",") +
 # SSHAPIAuthenticator(Authenticator) configuration
 #------------------------------------------------------------------------------
 
-c.SSHAPIAuthenticator.server = 'https://sshauthapi.nersc.gov/create_pair/jupyter/'
+c.SSHAPIAuthenticator.server = 'https://sshproxy.nersc.gov/create_pair/jupyter/'
 c.SSHAPIAuthenticator.skey = os.environ.get('SKEY')
 
 #------------------------------------------------------------------------------
@@ -833,29 +833,29 @@ c.NERSCSpawner.profiles = [
             "remote_port_command"   : "/opt/anaconda3/bin/get_port.py",
             "ssh_keyfile"           : "/tmp/{username}.key",
         }),
-        ("gerty-shared", "sshspawner.sshspawner.SSHSpawner", {
-            "remote_hosts"          : ["gert01-224.nersc.gov"],
+        ("cori-shared", "sshspawner.sshspawner.SSHSpawner", {
+            "remote_hosts"          : ["cori19-224.nersc.gov"],
             "remote_port"           : "22",
             "hub_api_url"           : "http://{}:8081/hub/api".format(ip),
             "path"                  : bindir + ":/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin",
             "remote_port_command"   : "/global/common/cori/das/jupyterhub/get_port.py",
             "ssh_keyfile"           : "/tmp/{username}.key",
         }),
-        ("gerty-exclusive-cpu", "nerscspawner.nerscspawner.NERSCSlurmSpawner", {
+        ("cori-exclusive-cpu", "nerscspawner.nerscspawner.NERSCSlurmSpawner", {
             "exec_prefix"           : 
                 "/usr/bin/ssh -q -o StrictHostKeyChecking=no -o preferredauthentications=publickey -l {username} -i /tmp/{username}.key {remote_host}",
             "startup_poll_interval" : 10.0,
-            "req_remote_host"       : "gert01-224.nersc.gov",
+            "req_remote_host"       : "cori19-224.nersc.gov",
             "req_homedir"           : "/tmp",
             "req_runtime"           : "30",
             "hub_api_url"           : "http://{}:8081/hub/api".format(ip),
             "path"                  : bindir + ":/global/common/cori/das/jupyterhub/:/usr/common/usg/bin:/usr/bin:/bin",
         }),
-        ("gerty-config", "nerscspawner.nerscspawner.NERSCSlurmSpawner", {
+        ("cori-config", "nerscspawner.nerscspawner.NERSCSlurmSpawner", {
             "exec_prefix"           : 
                 "/usr/bin/ssh -q -o StrictHostKeyChecking=no -o preferredauthentications=publickey -l {username} -i /tmp/{username}.key {remote_host}",
             "startup_poll_interval" : 10.0,
-            "req_remote_host"       : "gert01-224.nersc.gov",
+            "req_remote_host"       : "cori19-224.nersc.gov",
             "req_homedir"           : "/tmp",
             "req_runtime"           : "30",
             "hub_api_url"           : "http://{}:8081/hub/api".format(ip),

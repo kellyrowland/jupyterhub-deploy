@@ -1,6 +1,6 @@
 #!/bin/sh
 
-URL=https://sshauthapi.nersc.gov/get_keys
+URL=https://sshproxy.nersc.gov/get_keys
 USER=$1
 
 
